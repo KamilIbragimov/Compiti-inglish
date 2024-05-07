@@ -1,3 +1,4 @@
+from typing import Literal
 from flask import Flask, request, render_template
 
 app = Flask(__name__)
@@ -15,7 +16,7 @@ def gg():
         password = request.form.get('password')
 
         return ("form.html")
-    
+
 
 
 if __name__ == "__main__":
