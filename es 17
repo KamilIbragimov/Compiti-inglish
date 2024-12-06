@@ -1,0 +1,121 @@
+class Studente:
+    def __init__(self, nome, cognome):
+        self._nome = nome
+        self._cognome = cognome
+        self.insegnante = None
+        self.corso =[]
+
+    @property
+    def nome(self):
+        return self._nome
+
+    @nome.setter
+    def nome(self, nome):
+        self._nome = nome
+
+    @property
+    def cognome(self):
+        return self._cognome
+
+    @cognome.setter
+    def cognome(self, cognome):
+        self._cognome = cognome
+
+    def set_insegnante(self, insegnante):
+        self.insegnante = insegnante
+        insegnante.studenti.append(self)
+
+    def iscrivi_corso(self, corso):
+        self.corso.append(corso)
+
+    def __str__(self):
+        corsi_nomi = ', '.join(corso.nome for corso in self.corso)
+        return f"Studente: {self.nome} {self.cognome}, Insegnante: {self.insegnante.nome if self.insegnante else 'Nessuno'}, Corsi: {corsi_nomi if corsi_nomi else 'Nessuno'}"
+
+# Assicurati di avere anche il metodo __str__ per la classe Insegnante se vuoi stampare informazioni su di essa
+class Insegnante:
+    def __init__(self, nome: str, cognome: str, strumento: str):
+        self._nome = nome
+        self._cognome = cognome
+        self._strumento = strumento
+        self.studenti=[]
+    @property
+    def nome(self):
+        return self._nome
+
+    @nome.setter
+    def nome(self, nome):
+        self._nome = nome
+
+    @property
+    def cognome(self):
+        return self._cognome
+
+    @cognome.setter
+    def cognome(self, cognome):
+        self._cognome = cognome
+
+    @property
+    def strumento(self):
+        return self._strumento
+    @strumento.setter
+    def strumento(self, strumento):
+        self._strumento = strumento
+
+    def __str__(self):
+        return f"Insegnante: {self.nome} {self.cognome}, Strumento: {self.strumento}"
+    
+class Corso:
+    def __init__(self,nome,durata):
+        self._nome=nome
+        self._durata=durata
+    
+    @property
+    def nome(self):
+        return self._nome
+    
+    @nome.setter
+    def nome(self,nome):
+        self._nome=nome
+
+    @property
+    def durata(self):
+        return self._durata
+    
+    @durata.setter
+    def durata(self,durata):
+        self._durata=durata
+
+
+
+
+
+
+def main():
+    # Creazione degli insegnanti
+    insegnante1 = Insegnante("Mario", "Rossi", "Pianoforte")
+    insegnante2 = Insegnante("Luca", "Bianchi", "Chitarra")
+
+    # Creazione degli studenti
+    studente1 = Studente("Anna", "Verdi")
+    studente2 = Studente("Marco", "Neri")
+
+    # Assegnazione degli insegnanti agli studenti
+    studente1.set_insegnante(insegnante1)
+    studente2.set_insegnante(insegnante2)
+
+    # Creazione dei corsi
+    corso1 = Corso("Teoria Musicale", "3 mesi")
+    corso2 = Corso("Tecnica Pianistica", "6 mesi")
+
+    # Iscrizione degli studenti ai corsi
+    studente1.iscrivi_corso(corso1)
+    studente1.iscrivi_corso(corso2)
+    studente2.iscrivi_corso(corso1)
+
+    # Stampa delle informazioni
+    print(studente1)
+    print(studente2)
+
+if __name__ == "__main__":
+    main()
